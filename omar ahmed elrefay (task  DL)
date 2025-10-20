@@ -1,0 +1,297 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 191,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GWV0zCwNf6se",
+        "outputId": "0ee4977d-a623-46d2-90bc-e4a54a5e647f"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "tensor([[0.8549, 0.5509, 0.2868, 0.2063, 0.4451, 0.3593, 0.7204],\n",
+              "        [0.0731, 0.9699, 0.1078, 0.8829, 0.4132, 0.7572, 0.6948],\n",
+              "        [0.5209, 0.5932, 0.8797, 0.6286, 0.7653, 0.1132, 0.8559],\n",
+              "        [0.6721, 0.6267, 0.5691, 0.7437, 0.9592, 0.3887, 0.2214],\n",
+              "        [0.3742, 0.1953, 0.7405, 0.2529, 0.2332, 0.9314, 0.9575],\n",
+              "        [0.5575, 0.4134, 0.4355, 0.7369, 0.0331, 0.0914, 0.8994],\n",
+              "        [0.9936, 0.4703, 0.1049, 0.5137, 0.2674, 0.4990, 0.7447]])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 191
+        }
+      ],
+      "source": [
+        "# Import torch\n",
+        "import torch\n",
+        "# Create random tensor\n",
+        "random_tensor = torch.rand(7, 7)\n",
+        "random_tensor"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create another random tensor\n",
+        "random_tensor2 = torch.rand(7, 7)\n",
+        "# Perform matrix multiplication\n",
+        "print(random_tensor @ random_tensor2.T)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wPiaWku8gS4p",
+        "outputId": "cea0361a-3a3b-4c61-afc2-7a0dc701ce2e"
+      },
+      "execution_count": 192,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "tensor([[1.6914, 1.5857, 1.5556, 1.8829, 1.9430, 1.0956, 0.9838],\n",
+            "        [1.7581, 2.0348, 2.0052, 1.5306, 1.7609, 2.0163, 1.5478],\n",
+            "        [2.0906, 2.4466, 2.3806, 2.0778, 2.2735, 1.6092, 1.3770],\n",
+            "        [1.8975, 2.0632, 2.2419, 1.8030, 2.0735, 1.9664, 1.3179],\n",
+            "        [1.7585, 1.9728, 2.1380, 1.9327, 2.2990, 1.5333, 1.7218],\n",
+            "        [1.7961, 1.8481, 1.5624, 1.7905, 1.6642, 1.0465, 1.0046],\n",
+            "        [1.8900, 1.6848, 1.5688, 2.0853, 1.9599, 1.3241, 1.0905]])\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Set manual seed\n",
+        "torch.manual_seed(0)\n",
+        "# Create two random tensors\n",
+        "random_tensor = torch.rand(7, 7)\n",
+        "random_tensor2 = torch.rand(1, 7)\n",
+        "res = random_tensor @ random_tensor2.T\n",
+        "# Matrix multiply tensors\n",
+        "print(res, res.shape)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pRty_IP5gTLu",
+        "outputId": "a09fd876-34d1-4e4b-8d8e-2cd187e1d326"
+      },
+      "execution_count": 193,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "tensor([[1.8542],\n",
+            "        [1.9611],\n",
+            "        [2.2884],\n",
+            "        [3.0481],\n",
+            "        [1.7067],\n",
+            "        [2.5290],\n",
+            "        [1.7989]]) torch.Size([7, 1])\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "torch.cuda.manual_seed(1234)"
+      ],
+      "metadata": {
+        "id": "KF83mAEBi42d"
+      },
+      "execution_count": 194,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Set random seed\n",
+        "torch.manual_seed(1234)\n",
+        "\n",
+        "# Check for access to GPU\n",
+        "device = \"cuda\" if torch.cuda.is_available() else \"cpu\"\n",
+        "print(f\"Device: {device}\")\n",
+        "# Create two random tensors on GPU\n",
+        "random_tensor = torch.rand(2, 3)\n",
+        "random_tensor2 = torch.rand(2, 3)\n",
+        "random_tensor, random_tensor2"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "o3XFwxPDndQn",
+        "outputId": "a3c1256d-482e-4dbe-f6c6-3b00295057e9"
+      },
+      "execution_count": 195,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Device: cpu\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(tensor([[0.0290, 0.4019, 0.2598],\n",
+              "         [0.3666, 0.0583, 0.7006]]),\n",
+              " tensor([[0.0518, 0.4681, 0.6738],\n",
+              "         [0.3315, 0.7837, 0.5631]]))"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 195
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Perform matmul on tensor_A and tensor_B\n",
+        "ans = random_tensor @ random_tensor2.T\n",
+        "print(ans,ans.shape)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "P-lbACjUqFvK",
+        "outputId": "60ee6e80-ea3d-4bf4-dd0b-8614473552ce"
+      },
+      "execution_count": 196,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "tensor([[0.3647, 0.4709],\n",
+            "        [0.5184, 0.5617]]) torch.Size([2, 2])\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Find max\n",
+        "maxi_num = torch.max(ans)\n",
+        "# Find min\n",
+        "mini_num = torch.min(ans)\n",
+        "print(\"max value : \",maxi_num)\n",
+        "print(\"min vakue : \",mini_num)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "gx7IAsYmqhCD",
+        "outputId": "5a075c75-b075-4be2-dc3a-577a7f526e68"
+      },
+      "execution_count": 197,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "max value :  tensor(0.5617)\n",
+            "min vakue :  tensor(0.3647)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Find max\n",
+        "maxi_num = torch.argmax(ans)\n",
+        "# Find min\n",
+        "mini_num = torch.argmin(ans)\n",
+        "print(\"max value at index : \",maxi_num)\n",
+        "print(\"min vakue at index : \",mini_num)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OGnWfmlKrWjK",
+        "outputId": "a6dca284-bbeb-44f0-e7cc-35c26236bbe5"
+      },
+      "execution_count": 198,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "max value at index :  tensor(3)\n",
+            "min vakue at index :  tensor(0)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Set seed\n",
+        "torch.manual_seed(7)\n",
+        "# Create random tensor\n",
+        "tensor = torch.rand(1, 1, 1, 10)\n",
+        "# Remove single dimensions\n",
+        "an_tensor = tensor.squeeze()\n",
+        "\n",
+        "# Print out tensors and their shapes\n",
+        "print(tensor, tensor.shape)\n",
+        "print(an_tensor, an_tensor.shape)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7myQQNC9swwQ",
+        "outputId": "1216d168-b62f-43a3-a3b5-30a8bb74bdca"
+      },
+      "execution_count": 199,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "tensor([[[[0.5349, 0.1988, 0.6592, 0.6569, 0.2328, 0.4251, 0.2071, 0.6297,\n",
+            "           0.3653, 0.8513]]]]) torch.Size([1, 1, 1, 10])\n",
+            "tensor([0.5349, 0.1988, 0.6592, 0.6569, 0.2328, 0.4251, 0.2071, 0.6297, 0.3653,\n",
+            "        0.8513]) torch.Size([10])\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
